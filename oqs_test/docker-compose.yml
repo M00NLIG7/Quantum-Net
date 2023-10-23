@@ -1,0 +1,20 @@
+services:
+  server:
+    image: oqs_server_image
+    command: /home/oqs/venv/bin/python3 /home/oqs/server.py
+    networks:
+      - quantum_net
+    hostname: server
+
+  client:
+    image: oqs_server_image
+    command: /home/oqs/venv/bin/python3 /home/oqs/client.py
+    networks:
+      - quantum_net
+    depends_on:
+      - server
+    hostname: client
+
+networks:
+  quantum_net:
+    driver: bridge
