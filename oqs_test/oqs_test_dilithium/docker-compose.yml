@@ -1,0 +1,20 @@
+services:
+  sender:
+    image: oqs_test_dilithium
+    command: /home/oqs/venv/bin/python3 /home/oqs/send.py
+    networks:
+      - quantum_net
+    depends_on:
+      - receiver
+    hostname: sender
+
+  receiver:
+    image: oqs_test_dilithium
+    command: /home/oqs/venv/bin/python3 /home/oqs/receive.py
+    networks:
+      - quantum_net
+    hostname: receiver
+
+networks:
+  quantum_net:
+    driver: bridge

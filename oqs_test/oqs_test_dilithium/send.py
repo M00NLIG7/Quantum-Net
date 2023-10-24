@@ -46,24 +46,29 @@ def send_data_over_socket(data, detail, host, port, max_retries=5, retry_delay=2
         # log_transfer_statistics(log_file, id, start_time, end_time, len(data))
 
 if __name__ == "__main__":
-    message = "This is the message to sign".encode()
+        
+    while (True):
 
-    # create signer and verifier with sample signature mechanisms
-    sigalg = "Dilithium2"
+        message = "This is the message to sign".encode()
 
-    with oqs.Signature(sigalg) as signer:
-        # print("\nSignature details:")
-        # pprint(signer.details)
+        # create signer and verifier with sample signature mechanisms
+        sigalg = "Dilithium2"
 
-        # signer generates its keypair
-        signer_public_key = signer.generate_keypair()
+        with oqs.Signature(sigalg) as signer:
+            # print("\nSignature details:")
+            # pprint(signer.details)
 
-        # signer signs the message
-        signature = signer.sign(message)
+            # signer generates its keypair
+            signer_public_key = signer.generate_keypair()
 
-        # send message, signature, and public key to receiver
+            # signer signs the message
+            signature = signer.sign(message)
 
-        send_data_over_socket(message, "Message", "receiver", 5201)
-        send_data_over_socket(signature, "Signature", "receiver", 5202)
-        send_data_over_socket(signer_public_key, "Public Key", "receiver", 5203)
+            # send message, signature, and public key to receiver
+
+            send_data_over_socket(message, "Message", "receiver", 5201)
+            send_data_over_socket(signature, "Signature", "receiver", 5202)
+            send_data_over_socket(signer_public_key, "Public Key", "receiver", 5203)
+        
+        time.sleep(5)
 
