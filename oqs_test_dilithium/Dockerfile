@@ -41,6 +41,7 @@ RUN /bin/bash -c "source venv/bin/activate && cd liboqs-python && pip install . 
 # COPY new_test.py /home/oqs/
 COPY send.py /home/oqs/
 COPY receive.py /home/oqs/
+COPY results.txt /home/oqs
 
 # USER root
 # RUN chmod +x /home/oqs/apply_network_constraints.sh

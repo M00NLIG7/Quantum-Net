@@ -7,7 +7,7 @@ import time
 
 
 #######################################################################
-# Send 
+# Send
 #######################################################################
 
 def start_tcpdump():
@@ -26,33 +26,35 @@ def send_data_over_socket(data, detail, host, port, max_retries=5, retry_delay=2
                 s.connect((host, port))
                 # Connection successful, send data
                 s.sendall(data)
-                with open("result.txt", 'a') as file:
-                    file.writelines(
-                        f"Sent {detail} in {retries} attempts.\n")
-                    file.close()
+                # with open("result.txt", 'a') as file:
+                #     file.writelines(
+                #         f"Sent {detail} in {retries} attempts.\n")
+                #     file.close()
+                # print(f"Sender:\nSent {detail} in {retries} attempts.\n", flush=True)
                 return  # Exit the function after successful send
             except socket.error as e:
                 print(
-                    f"Failed to connect to {host}:{port}. Retrying in {retry_delay} seconds...")
+                    f"Failed to connect to {host}:{port}. Retrying in {retry_delay} seconds...", flush=True)
                 retries += 1
                 time.sleep(retry_delay)
 
-        print(f"Failed to send data after {max_retries} attempts.")
-        with open("result.txt", 'a') as file:
-            file.writelines(
-                f"Failed to send {detail} after {max_retries} attempts. \n")
-            file.close()
+        print(f"Failed to send data after {max_retries} attempts.", flush=True)
+        # with open("result.txt", 'a') as file:
+        #     file.writelines(
+        #         f"Failed to send {detail} after {max_retries} attempts. \n")
+        #     file.close()
         # end_time = time.time()
         # log_transfer_statistics(log_file, id, start_time, end_time, len(data))
 
+
 if __name__ == "__main__":
-        
+
     while (True):
 
         message = "This is the message to sign".encode()
 
         # create signer and verifier with sample signature mechanisms
-        sigalg = "Dilithium2"
+        sigalg = "Dilithium5"
 
         with oqs.Signature(sigalg) as signer:
             # print("\nSignature details:")
@@ -68,7 +70,7 @@ if __name__ == "__main__":
 
             send_data_over_socket(message, "Message", "receiver", 5201)
             send_data_over_socket(signature, "Signature", "receiver", 5202)
-            send_data_over_socket(signer_public_key, "Public Key", "receiver", 5203)
-        
-        time.sleep(5)
+            send_data_over_socket(
+                signer_public_key, "Public Key", "receiver", 5203)
 
+        time.sleep(5)

@@ -6,7 +6,10 @@ services:
     networks:
       - quantum_net
     hostname: server
-
+    volumes:
+      - ./build/server_logs.txt:/home/oqs/server_logs.txt
+    cap_add:
+      - NET_ADMIN
   client:
     image: oqs_server_image
     command: /home/oqs/venv/bin/python3 /home/oqs/client.py
@@ -16,7 +19,12 @@ services:
     depends_on:
       - server
     hostname: client
+    volumes:
+      - ./build/client_logs.txt:/home/oqs/client_logs.txt
+    cap_add:
+      - NET_ADMIN 
 
 networks:
   quantum_net:
     driver: bridge
+

@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 # Install dependencies
 RUN apt-get -y update && \
-    apt-get install -y build-essential git cmake libssl-dev python3 python3-venv python3-pip iperf3 tcpdump iputils-ping iproute2 libcap2-bin
+    apt-get install -y vim build-essential git cmake libssl-dev python3 python3-venv python3-pip iperf3 tcpdump iputils-ping iproute2 libcap2-bin
 
 # Get liboqs
 RUN git clone --depth 1 --branch main https://github.com/open-quantum-safe/liboqs
